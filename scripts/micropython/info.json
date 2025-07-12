@@ -1,0 +1,29 @@
+{
+  "Title": "micropython.tcz",
+  "Description": "micropython development environment",
+  "Version": "1.22",
+  "Author": "Damien George",
+  "Original-site": "https://micropython.org/",
+  "Copying-policy": "MIT License",
+  "Size": "392K",
+  "Extension_by": "VaguinerG",
+  "Tags": [
+    "development",
+    "python"
+  ],
+  "Comments": "a lean and efficient Python implementation for microcontrollers and constrained systems",
+  "Change-log": [
+    {
+      "date": "2023/07/20",
+      "version": "1.20"
+    },
+    {
+      "date": "2023/12/03",
+      "version": "1.21"
+    }
+  ],
+  "Current": {
+    "date": "2024/01/14",
+    "version": "1.22"
+  }
+}
