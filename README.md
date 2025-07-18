@@ -8,7 +8,7 @@
 - **`-march=alderlake -mtune=alderlake`**  
   Uses all CPU features from Alder Lake.
 
- **`-fmerge-all-constants`**  
+- **`-fmerge-all-constants`**  
   Deduplicates identical constants (arrays, strings, etc.) across translation units to reduce size and improve cache efficiency.
 
 - **`-fno-semantic-interposition`**  
