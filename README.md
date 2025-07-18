@@ -8,9 +8,6 @@
 - **`-march=alderlake -mtune=alderlake`**  
   Uses all CPU features from Alder Lake.
 
-- **`-fmerge-all-constants`**  
-  Deduplicates identical constants (arrays, strings, etc.) across translation units to reduce size and improve cache efficiency.
-
 - **`-ftree-vectorize`**  
   Enables vectorization at the GIMPLE tree level for both loops and straight-line code, using SIMD instructions where possible.
 
