@@ -11,9 +11,6 @@
 - **`-fmerge-all-constants`**  
   Deduplicates identical constants (arrays, strings, etc.) across translation units to reduce size and improve cache efficiency.
 
-- **`-fno-semantic-interposition`**  
-  Assumes symbols are not replaced at runtime, allowing cross-module inlining and better optimization of function calls and globals.
-
 - **`-ftree-vectorize`**  
   Enables vectorization at the GIMPLE tree level for both loops and straight-line code, using SIMD instructions where possible.
 
