@@ -29,7 +29,7 @@ cd micropython-$version/ports/unix/
 #for some reason, the first make with cflags causes error. you need to compile with just "make" then pass the flags
 make
 make clean
-CFLAGS="-fmerge-all-constants -fno-semantic-interposition -ftree-vectorize -fipa-pta -funroll-loops -floop-nest-optimize -Ofast -march=alderlake -mtune=alderlake -flto" CXXFLAGS="-fmerge-all-constants -fno-semantic-interposition -ftree-vectorize -fipa-pta -funroll-loops -floop-nest-optimize -Ofast -march=alderlake -mtune=alderlake -flto" make -j4
+CFLAGS="-fopt-info-vec-optimized -fmerge-all-constants -fno-semantic-interposition -ftree-vectorize -fipa-pta -funroll-loops -floop-nest-optimize -Ofast -march=alderlake -mtune=alderlake -flto" CXXFLAGS="-fopt-info-vec-optimized -fmerge-all-constants -fno-semantic-interposition -ftree-vectorize -fipa-pta -funroll-loops -floop-nest-optimize -Ofast -march=alderlake -mtune=alderlake -flto" make -j4
 bindir=$(mktemp -d)
 mkdir -p $bindir/usr/local/bin/
 mv build-standard/micropython $bindir/usr/local/bin/
