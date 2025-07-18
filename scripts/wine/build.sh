@@ -36,7 +36,7 @@ chmod u+x ./patches/gitapply.sh
 python3.9 ./staging/patchinstall.py DESTDIR=../wine-$wine/ --all --no-autoconf \
 -W ws2_32-af_unix \
 -W ntdll-Junction_Points \
--W user32-rawinput-mouse\
+-W user32-rawinput-mouse \
 -W ntdll-NtDevicePath \
 -W server-File_Permissions \
 -W server-Stored_ACLs \
@@ -54,10 +54,10 @@ export PATH=$PATH:./llvm-mingw-20250709-ucrt-ubuntu-22.04-x86_64/bin/
 sudo ln -s /lib /lib64
 
 #compile
-export CFLAGS="-Ofast -fipa-pta -march=alderlake -mtune=alderlake"
-export CXXFLAGS="-Ofast -fipa-pta -march=alderlake -mtune=alderlake"
+export CFLAGS="-O3 -fipa-pta -march=alderlake -mtune=alderlake"
+export CXXFLAGS="-O3 -fipa-pta -march=alderlake -mtune=alderlake"
 ./configure --libdir=/usr/local/lib --prefix=/usr/local --localstatedir=/var --without-dbus --enable-archs=i386,x86_64
-find . -name Makefile -type f -exec sed -i 's/-g -O2/-Ofast -march=alderlake -mtune=alderlake/g' {} \;
+find . -name Makefile -type f -exec sed -i 's/-g -O2/-O3 -march=alderlake -mtune=alderlake/g' {} \;
 
 make -j8
 make install DESTDIR=/tmp/wine
