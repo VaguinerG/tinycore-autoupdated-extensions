@@ -31,3 +31,10 @@
 ### Warning
 
 These flags prioritize **performance** over **portability** and **standards compliance**.
+
+## Package Optimization Summary
+
+| Package        | Version  | Flags Changed                          | Notes                                                              |
+|----------------|----------|----------------------------------------|--------------------------------------------------------------------|
+| MicroPython    | 1.25.0   | `-flto` added                          | Builds and runs correctly with all custom optimizations.           |
+| Wine (Staging) | 10.12    | `-O3`                                  | `-Ofast` causes runtime issues; downgraded to `-O3`.               |
