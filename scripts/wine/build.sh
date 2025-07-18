@@ -55,10 +55,10 @@ export PATH=$PATH:./llvm-mingw-20250709-ucrt-ubuntu-22.04-x86_64/bin/
 sudo ln -s /lib /lib64
 
 #compile
-export CFLAGS="-Ofast -fipa-pta -march=alderlake -floop-nest-optimize -mtune=alderlake"
-export CXXFLAGS="-Ofast -fipa-pta -march=alderlake -floop-nest-optimize -mtune=alderlake"
+export CFLAGS="-O3 -fipa-pta -march=alderlake -floop-nest-optimize -mtune=alderlake"
+export CXXFLAGS="-O3 -fipa-pta -march=alderlake -floop-nest-optimize -mtune=alderlake"
 ./configure --libdir=/usr/local/lib --prefix=/usr/local --localstatedir=/var --without-dbus --enable-archs=i386,x86_64
-find . -name Makefile -type f -exec sed -i 's/-g -O2/-Ofast -march=alderlake -mtune=alderlake/g' {} \;
+find . -name Makefile -type f -exec sed -i 's/-g -O2/-O3 -march=alderlake -mtune=alderlake/g' {} \;
 
 make -j8
 make install DESTDIR=/tmp/wine
