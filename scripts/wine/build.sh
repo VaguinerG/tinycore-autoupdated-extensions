@@ -58,7 +58,7 @@ sudo ln -s /lib /lib64
 export CFLAGS="-fopt-info-vec-optimized -fmerge-all-constants -fno-semantic-interposition -ftree-vectorize -fipa-pta -funroll-loops -floop-nest-optimize -O3 -march=alderlake -mtune=alderlake"
 export CXXFLAGS="-fopt-info-vec-optimized -fmerge-all-constants -fno-semantic-interposition -ftree-vectorize -fipa-pta -funroll-loops -floop-nest-optimize -O3 -march=alderlake -floop-nest-optimize -mtune=alderlake"
 ./configure --libdir=/usr/local/lib --prefix=/usr/local --localstatedir=/var --without-dbus --enable-archs=i386,x86_64
-find . -name Makefile -type f -exec sed -i 's/-g -O2/-O3 -march=alderlake -mtune=alderlake/g' {} \;
+find . -name Makefile -type f -exec sed -i 's/-g -O2/-O3 -march=alderlake -mtune=alderlake -Rpass=loop-vectorize/g' {} \;
 
 make -j8
 make install DESTDIR=/tmp/wine
