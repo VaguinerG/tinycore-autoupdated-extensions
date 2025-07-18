@@ -34,6 +34,7 @@ wget --no-check-certificate -O- https://codeload.github.com/wine-staging/wine-st
 cd wine-staging-$staging/
 chmod u+x ./patches/gitapply.sh
 python3.9 ./staging/patchinstall.py DESTDIR=../wine-$wine/ --all --no-autoconf \
+-W ntdll_reg_flush \
 -W ws2_32-af_unix \
 -W ntdll-Junction_Points \
 -W user32-rawinput-mouse \
