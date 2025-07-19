@@ -18,13 +18,15 @@ case "$1" in
     ;;
 esac' | sudo tee /bin/uname > /dev/null
 sudo chmod +x /bin/uname
-tce-load -lwi Xorg-7.7-3d-dev submitqc pulseaudio-dev unixODBC-dev bash compiletc libvulkan-dev gnutls38-dev alsa-dev krb5-dev openssl-dev libpcap-dev sdl2-dev opencl-headers pcsc-lite-dev libusb-dev sane-dev libgphoto2-dev gstreamer-dev gst-plugins-base-dev weston-dev sstrip squashfs-tools binutils coreutils python3.9 python3.9-pip ffmpeg7-dev clang
+tce-load -lwi autoconf perl5 Xorg-7.7-3d-dev submitqc pulseaudio-dev unixODBC-dev bash compiletc libvulkan-dev gnutls38-dev alsa-dev krb5-dev openssl-dev libpcap-dev sdl2-dev opencl-headers pcsc-lite-dev libusb-dev sane-dev libgphoto2-dev gstreamer-dev gst-plugins-base-dev weston-dev sstrip squashfs-tools binutils coreutils python3.9 python3.9-pip ffmpeg7-dev clang
 sudo ln -s /usr/local/lib/gcc/ /usr/lib/
+# required for staging autoconf, tools/make_requests, wich rebuilds protocols.def, changed by some patches including eventf, needs to be rebuild, and perl link is hardcoded to /usr/bin
+sudo cp /usr/local/bin/perl /usr/bin/perl
 workdir=$(mktemp -d)
 cd $workdir
 
-wine=10.12
-staging=b09545bc48f71f146a4b18ecb9ae4cfdb6bee117
+wine=10.10
+staging=c37f9f50912bd801e217ba81d2512feb7386f0d1
 
 #get wine
 wget -O- --no-check-certificate https://dl.winehq.org/wine/source/10.x/wine-$wine.tar.xz | tar -xJ
@@ -33,14 +35,7 @@ wget -O- --no-check-certificate https://dl.winehq.org/wine/source/10.x/wine-$win
 wget --no-check-certificate -O- https://codeload.github.com/wine-staging/wine-staging/zip/$staging | busybox unzip -qq -
 cd wine-staging-$staging/
 chmod u+x ./patches/gitapply.sh
-python3.9 ./staging/patchinstall.py DESTDIR=../wine-$wine/ --all --no-autoconf \
--W ntdll_reg_flush \
--W ws2_32-af_unix \
--W ntdll-Junction_Points \
--W user32-rawinput-mouse \
--W ntdll-NtDevicePath \
--W server-File_Permissions \
--W server-Stored_ACLs \
+python3.9 ./staging/patchinstall.py DESTDIR=../wine-$wine/ --all
 
 cd ../wine-$wine/
 
