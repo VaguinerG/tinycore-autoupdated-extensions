@@ -35,7 +35,7 @@ wget -O- --no-check-certificate https://dl.winehq.org/wine/source/10.x/wine-$win
 wget --no-check-certificate -O- https://codeload.github.com/wine-staging/wine-staging/zip/$staging | busybox unzip -qq -
 cd wine-staging-$staging/
 chmod u+x ./patches/gitapply.sh
-python3.9 ./staging/patchinstall.py DESTDIR=../wine-$wine/ --all
+python3.9 ./staging/patchinstall.py DESTDIR=../wine-$wine/ --all -W server-Stored_ACLs
 
 cd ../wine-$wine/
 
