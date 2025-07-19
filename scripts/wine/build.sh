@@ -1,3 +1,4 @@
+#uname returns wrong outputs on CI
 sudo rm -f /bin/uname
 echo '#!/bin/busybox ash
 case "$1" in
@@ -20,11 +21,12 @@ esac' | sudo tee /bin/uname > /dev/null
 sudo chmod +x /bin/uname
 tce-load -lwi autoconf perl5 Xorg-7.7-3d-dev submitqc pulseaudio-dev unixODBC-dev bash compiletc libvulkan-dev gnutls38-dev alsa-dev krb5-dev openssl-dev libpcap-dev sdl2-dev opencl-headers pcsc-lite-dev libusb-dev sane-dev libgphoto2-dev gstreamer-dev gst-plugins-base-dev weston-dev sstrip squashfs-tools binutils coreutils python3.9 python3.9-pip ffmpeg7-dev clang
 sudo ln -s /usr/local/lib/gcc/ /usr/lib/
-# required for staging autoconf, tools/make_requests, wich rebuilds protocols.def, changed by some patches including eventf, needs to be rebuild, and perl link is hardcoded to /usr/bin
+# required for staging autoconf, tools/make_requests, wich rebuilds protocols.def, changed by some patches including eventd, needs to be rebuild, and perl link is hardcoded to /usr/bin
 sudo cp /usr/local/bin/perl /usr/bin/perl
 workdir=$(mktemp -d)
 cd $workdir
 
+#Eventfd disabled from version 10.11, to prepare for NTSYNC, which is only available in kernel 6.14, while tinycore is still in 6.12.
 wine=10.10
 staging=c37f9f50912bd801e217ba81d2512feb7386f0d1
 
@@ -51,8 +53,8 @@ sudo ln -s /lib /lib64
 
 #compile
 export CFLAGS="-fopt-info-vec-optimized -fmerge-all-constants -fno-semantic-interposition -ftree-vectorize -fipa-pta -funroll-loops -floop-nest-optimize -O3 -march=alderlake -mtune=alderlake"
-export CXXFLAGS="-fopt-info-vec-optimized -fmerge-all-constants -fno-semantic-interposition -ftree-vectorize -fipa-pta -funroll-loops -floop-nest-optimize -O3 -march=alderlake -floop-nest-optimize -mtune=alderlake"
-./configure --libdir=/usr/local/lib --prefix=/usr/local --localstatedir=/var --without-dbus --enable-archs=i386,x86_64
+export CXXFLAGS="-fopt-info-vec-optimized -fmerge-all-constants -fno-semantic-interposition -ftree-vectorize -fipa-pta -funroll-loops -floop-nest-optimize -O3 -march=alderlake -mtune=alderlake"
+./configure --libdir=/usr/local/lib --prefix=/usr/local --localstatedir=/var --without-dbus --enable-archs=i386,x86_64 --disable-win16 --disable-tests
 find . -name Makefile -type f -exec sed -i 's/-g -O2/-O3 -march=alderlake -mtune=alderlake -Rpass=loop-vectorize/g' {} \;
 
 make -j8
